@@ -21,7 +21,7 @@ var exportCmd = &cobra.Command{
 	todocli export --file=myexport.json
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
-		content, err := importAllTasks("")
+		content, err := exportAllTasks("")
 		if err != nil {
 			fmt.Println(fmt.Sprintf("getting tasks failed: %v", err))
 			return
