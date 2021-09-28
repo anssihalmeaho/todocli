@@ -19,7 +19,7 @@ func formatTask(task Task) string {
 }
 
 func printTasks(tasks []Task) {
-	taskStr := "\nTasks:\n\n"
+	taskStr := "\nTasks:\n"
 	for _, task := range tasks {
 		taskStr += formatTask(task)
 	}

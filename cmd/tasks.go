@@ -145,6 +145,34 @@ func getTaskWithID(taskID string) ([]Task, error) {
 	return tasks, nil
 }
 
+func getTags() ([]string, error) {
+	tags := []string{}
+
+	resp, err := http.Get(fmt.Sprintf("%s/v1/tags", getPath()))
+	if err != nil {
+		return tags, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != 200 {
+		body, err := ioutil.ReadAll(resp.Body)
+		if err == nil {
+			fmt.Println(fmt.Sprintf("response: %s", string(body)))
+		}
+		return tags, fmt.Errorf("unexpected error code: %v", resp.Status)
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return tags, err
+	}
+	err = json.Unmarshal(body, &tags)
+	if err != nil {
+		return tags, err
+	}
+	return tags, nil
+}
+
 func getAllTasks(query string) ([]Task, error) {
 	tasks := []Task{}
 
